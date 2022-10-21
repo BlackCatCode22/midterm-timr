@@ -72,10 +72,8 @@ class Contact():
         return [self.address1,self.address2,city_state_zip,self.country]
     def get_home_phone(self):
         return self.home_phone
-    # Getter method for work_phone
     def get_work_phone(self):
         return self.work_phone
-    # Getter method for cell_phone
     def get_cell_phone(self):
         return self.cell_phone
     def get_email(self):
