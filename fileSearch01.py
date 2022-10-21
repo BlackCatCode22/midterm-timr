@@ -52,6 +52,12 @@ class Contact():
         self.email = ""
 
     # Getter methods
+    def get_first_name(self):
+        return self.first_name
+    def get_middle_name(self):
+        return self.middle_name
+    def get_last_name(self):
+        return self.last_name
     def get_name(self):
         if self.middle_name == "" and self.last_name == "":
             return self.first_name
@@ -69,19 +75,23 @@ class Contact():
             city_state_zip += self.state
         if self.zip != "":
             city_state_zip += self.zip
-        return [self.address1,self.address2,city_state_zip,self.country]
+        return [self.address1,self.address2,city_state_zip,self.city,self.state,self.zip,self.country]
     def get_home_phone(self):
         return self.home_phone
-    # Getter method for work_phone
     def get_work_phone(self):
         return self.work_phone
-    # Getter method for cell_phone
     def get_cell_phone(self):
         return self.cell_phone
     def get_email(self):
         return self.email
 
     # Setter methods
+    def set_first_name(self,name):
+        self.first_name = name
+    def set_middle_name(self,name):
+        self.middle_name = name
+    def set_last_name(self,name):
+        self.last_name = name
     def set_name(self, name):
         name_split = name.split()
         self.first_name = name_split[0]
@@ -90,7 +100,7 @@ class Contact():
         if len(name_split) == 3:
             self.middle_name = name_split[1]
             self.last_name = name_split[2]
-    def set_address(self, address1, address2, city, state, country, zip):
+    def set_address(self, address1, address2, city, state, zip, country):
         self.address1 = address1
         self.address2 = address2
         self.city = city
@@ -120,9 +130,10 @@ class Contact():
         # Check for data in each object variable and only show those that contain information
         if self.get_name() != "":
             print("Name: ", self.get_name())
-        if not all(item == "" for item in self.get_address()):
+        temp_address = [self.get_address()[0],self.get_address()[1],self.get_address()[2],self.get_address()[6]]
+        if not all(item == "" for item in temp_address):
             print("Address: ")
-            for item in self.get_address():
+            for item in temp_address:
                 if not item == "":
                     print("  ", item)
         if self.get_home_phone() != "":
@@ -144,75 +155,77 @@ class Contact():
         print("\nLeave blank to keep current value, or enter - to remove\n")
 
         # For each object variable, set up a temp input variable
-        temp = input("First name (current: "+self.first_name+"): ")
+        temp = input("First name (current: " + self.get_first_name() +"): ")
 
         # Check for a - input and remove any existing data from that object variable
         if temp == "-":
-            self.first_name = ""
+            self.set_first_name("")
 
         # Check for input and replace the value
         elif temp != "":
-            self.first_name = temp
-        temp = input("Middle name (current: "+self.middle_name+"): ")
+            self.set_first_name(temp)
+        temp = input("Middle name (current: " + self.get_middle_name() + "): ")
         if temp == "-":
-            self.middle_name = ""
+            self.set_middle_name("")
         elif temp != "":
-            self.middle_name = temp
-        temp = input("Last name (current: "+self.last_name+"): ")
+            self.set_middle_name(temp)
+        temp = input("Last name (current: " + self.get_last_name() +"): ")
         if temp == "-":
-            self.last_name = ""
+            self.set_last_name("")
         elif temp != "":
-            self.last_name = temp
-        temp = input("Street address (current: "+self.address1+"): ")
+            self.set_last_name(temp)
+        temp_address = self.get_address()
+        temp = input("Street address (current: " + temp_address[0] + "): ")
         if temp == "-":
-            self.address1 = ""
+            temp_address[0] = ""
         elif temp != "":
-            self.address1 = temp
-        temp = input("Street address (optional second line - current: "+self.address2+"): ")
+            temp_address[0] = temp
+        temp = input("Street address (optional second line - current: " + temp_address[1] + "): ")
         if temp == "-":
-            self.address2 = ""
+            temp_address[1] = ""
         elif temp != "":
-            self.address2 = temp
-        temp = input("City (current: "+self.city+"): ")
+            temp_address[1] = temp
+        temp = input("City (current: " + temp_address[3] + "): ")
         if temp == "-":
-            self.city = ""
+            temp_address[3] = ""
         elif temp != "":
-            self.city = temp
-        temp = input("State (current: "+self.state+"): ")
+            temp_address[3] = temp
+        temp = input("State (current: " + temp_address[4] + "): ")
         if temp == "-":
-            self.state = ""
+            temp_address[4] = ""
         elif temp != "":
-            self.state = temp
-        temp = input("Zip (current: "+self.zip+"): ")
+            temp_address[4] = temp
+        temp = input("Zip (current: " + temp_address[5] + "): ")
         if temp == "-":
-            self.zip = ""
+            temp_address[5] = ""
         elif temp != "":
-            self.zip = temp
-        temp = input("Country (current: "+self.country+"): ")
+            temp_address[5] = temp
+        temp = input("Country (current: " + temp_address[6] + "): ")
         if temp == "-":
-            self.country = ""
+            temp_address[6] = ""
         elif temp != "":
-            self.country = temp
-        temp = input("Home Phone (current: "+self.home_phone+"): ")
+            temp_address[6] = temp
+        self.set_address(temp_address[0],temp_address[1],temp_address[3],temp_address[4],temp_address[5],temp_address[6])
+        temp = input("Home Phone (current: " + self.get_home_phone() + "): ")
         if temp == "-":
-            self.home_phone = ""
+            self.set_home_phone("")
         elif temp != "":
-            self.home_phone = temp
-        temp = input("Work Phone (current: "+self.work_phone+"): ")
+            self.set_home_phone(temp)
+        temp = input("Work Phone (current: " + self.get_work_phone() + "): ")
         if temp == "-":
-            self.work_phone = ""
+            self.set_work_phone("")
         elif temp != "":
-            self.work_phone = temp
-        temp = input("Cell Phone (current: "+self.cell_phone+"): ")
+            self.set_work_phone(temp)
+        temp = input("Cell Phone (current: " + self.get_cell_phone() + "): ")
         if temp == "-":
-            self.cell_phone = ""
+            self.set_cell_phone("")
         elif temp != "":
-            self.cell_phone = temp
-        temp = input("E-Mail address (current: "+self.email+"): ")
+            self.set_cell_phone(temp)
+        temp = input("E-Mail address (current: " + self.get_email() + "): ")
         if temp == "-":
-            self.email = ""
+            self.set_email("")
         elif temp != "":
-            self.email = temp
+            self.set_email(temp)
 
     # Method to add a new contact
     def add(self):
@@ -220,19 +233,14 @@ class Contact():
         print("Adding new contact...\n\nAny unknown information can be left blank\n")
 
         # Directly place user input into each object variable
-        self.first_name = input("First name: ")
-        self.middle_name = input("Middle name: ")
-        self.last_name = input("Last name: ")
-        self.address1 = input("Street address: ")
-        self.address2 = input("Street address (optional second line): ")
-        self.city = input("City: ")
-        self.state = input("State: ")
-        self.zip = input("Zip: ")
-        self.country = input("Country: ")
-        self.home_phone = input("Home Phone: ")
-        self.work_phone = input("Work Phone: ")
-        self.cell_phone = input("Cell Phone: ")
-        self.email = input("E-Mail address: ")
+        self.set_first_name(input("First name: "))
+        self.set_middle_name(input("Middle name: "))
+        self.set_last_name(input("Last name: "))
+        self.set_address(input("Street address: "),input("Street address (optional second line): "),input("City: "),input("State: "),input("Zip: "),input("Country: "))
+        self.set_home_phone(input("Home Phone: "))
+        self.set_work_phone(input("Work Phone: "))
+        self.set_cell_phone(input("Cell Phone: "))
+        self.set_email(input("E-Mail address: "))
 
         # Increment the total number of contacts in list
         Contact.increment_contacts()
@@ -276,7 +284,7 @@ def import_mbox():
             # Check if this is a repeated e-mail address
             repeat = False
             for i in range(len(contact_list)):
-                if contact_list[i].email == email:
+                if contact_list[i].get_email() == email:
                     repeat = True
 
             # If not a repeat, add a new entry to the contact list
@@ -288,7 +296,7 @@ def import_mbox():
                 contact_list.append(Contact())
 
                 # Set the object's email variable to the new email address
-                contact_list[Contact.TOTAL_CONTACTS].email = email
+                contact_list[Contact.TOTAL_CONTACTS].set_email(email)
 
                 # Increment the total number of contacts in the list
                 Contact.increment_contacts()
