@@ -34,11 +34,23 @@ f = open('mbox-short.txt', 'r')
 
 senders = dict()
 
-def organizer_dict():
-    for line in f:
-        if (line[0:5] == 'From '):
-            senders = {word for word in line.split() if '@' in word}
-            print(senders)
+# def organizer_dict(f):
+#     for line in f:
+#         if (line[0:5] == 'From '):
+#             senders = {word for word in line.split() if '@' in word}
+#             # print(senders)
+#             two_fer = senders.split('@')
+#             pref = two_fer[0]
+#             dom = two_fer[1]
+#             print(pref, '\n', dom)
 
 
-organizer_dict()
+# organizer_dict(f)
+
+sender_values = []
+
+for line in f:
+    if (line[0:5] == 'From '):
+        sender_values.extend(word for word in line.split() if '@' in word)
+        # print(sender_values)
+print(sender_values)
