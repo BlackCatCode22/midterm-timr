@@ -32,7 +32,7 @@ f = open('mbox-short.txt', 'r')
 #         new_dict = {word for word in line.split() if '@' in word}
 #         print(new_dict)
 
-senders = dict()
+# senders = dict()
 
 # def organizer_dict(f):
 #     for line in f:
@@ -53,4 +53,10 @@ for line in f:
     if (line[0:5] == 'From '):
         sender_values.extend(word for word in line.split() if '@' in word)
         # print(sender_values)
+        count = count + 1
+print(count, 'is amount of gathered contacts, dupes included')
 print(sender_values)
+senders = [*set(sender_values)]
+print(senders)
+# *set() will find and remove duplicates in list and return as new list
+
