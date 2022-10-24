@@ -75,8 +75,8 @@ for i in range(len(list_pref)):
 
 msgs_sent_per = {}
 for i in senders_msgs:
-    print(senders_msgs.count(i))
-# print(msgs_sent_per)
+    msgs_sent_per[i] = senders_msgs.count(i)
+print('messages sent per sender: ', msgs_sent_per)
 
 
 # print(sorted(sender_values.keys()))
